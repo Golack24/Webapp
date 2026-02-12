@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Favorite Person 🧸</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #FFF0F5, #FDE2E4, #FFF5E6);
+  color: #5A3D2B;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+}
+
+/* ===== FLOATING BACKGROUND SYSTEM ===== */
+
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-item {
+  position: absolute;
+  animation: floatUp linear forwards;
+  user-select: none;
+}
+
+/* Depth layers */
+.depth-light {
+  filter: blur(1.2px);
+  opacity: 0.4;
+}
+
+.depth-medium {
+  filter: blur(0.6px);
+  opacity: 0.65;
+}
+
+.depth-sharp {
+  filter: blur(0px);
+  opacity: 0.9;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) translateX(0px) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: inherit;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(40px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* ===== MAIN CONTENT ===== */
+
+.container {
+  position: relative;
+  z-index: 2;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1; /* This makes sure the content takes up available space */
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 25px;
+  color: #A67C52;
+}
+
+p {
+  font-size: 1.25rem;
+  max-width: 650px;
+  margin-bottom: 35px;
+  line-height: 1.8;
+  color: #8B5E3C;
+}
+
+.rilakkuma {
+  width: 230px;
+  margin: 35px auto;
+  display: none;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 15px 25px rgba(166,124,82,0.3));
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.button {
+  background: linear-gradient(135deg, #F8BBD0, #F48FB1);
+  border: none;
+  padding: 16px 35px;
+  font-size: 1.1rem;
+  border-radius: 40px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 25px rgba(244,143,177,0.3);
+}
+
+.valentine-text {
+  font-size: 2.2rem;       /* slightly smaller than h1 */
+  color: #A67C52;          /* same Rilakkuma brown */
+  font-weight: 700;        /* same boldness as h1 */
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.15); /* same soft shadow as title */
+}
+
+
+.button:hover {
+  transform: translateY(-3px) scale(1.05);
+  color: #A67C52;
+}
+
+/* ===== MUSIC PLAYER ===== */
+
+#musicPlayer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(248, 187, 208, 0.95);
+  padding: 12px 18px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 15px rgba(244,143,177,0.3);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #5A3D2B;
+}
+
+/* Pink Play/Pause Button */
+#musicPlayer button {
+  background: linear-gradient(135deg, #F8BBD0, #F48FB1);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(244,143,177,0.3);
+}
+
+#musicPlayer button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #F48FB1, #EC407A);
+}
+
+/* Brown Rilakkuma Volume Slider */
+#musicPlayer input[type="range"] {
+  width: 90px;
+  appearance: none;
+  height: 6px;
+  border-radius: 10px;
+  background: #C8A27A; /* soft brown track */
+  outline: none;
+}
+
+/* Slider Thumb */
+#musicPlayer input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8B5E3C; /* darker brown */
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#musicPlayer input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8B5E3C;
+  cursor: pointer;
+}
+
+
+/* ===== CORNER STICKER ===== */
+
+.corner-sticker {
+  position: fixed;
+  top: 90px;
+  left: 40px;
+  width: 170px;
+  z-index: 4;
+  opacity: 0;
+  transform: scale(0.5) rotate(6deg);
+}
+
+.corner-sticker.show {
+  animation: popIn 0.6s ease forwards;
+}
+
+.corner-sticker1{
+  position: fixed;
+  top: 180px;
+  right: 150px;
+  width: 150px;
+  z-index: 4;
+  opacity: 0;
+  transform: scale(0.5) rotate(6deg);
+}
+
+.corner-sticker1.show {
+  animation: popIn 0.6s ease forwards;
+}
+
+.corner-sticker2 {
+  position: fixed;
+  bottom: 20px;
+  left: 20%;
+  transform: translateX(-50%) scale(0.5) rotate(6deg);
+  width: 320px;
+  z-index: 4;
+  opacity: 0;
+}
+
+.corner-sticker2.show {
+  animation: popIn 0.6s ease forwards;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+  position: relative;
+  color: #5A3D2B;
+  font-size: 1.2rem;
+  margin-top: 40px;
+  box-shadow: 0 4px 15px rgba(244, 143, 177, 0.3);
+  z-index: 0;
+  margin-top: auto;
+   text-align: center;
+}
+
+footer p {
+  margin: 0;
+  font-weight: 600;
+}
+
+footer .heart {
+  color: #F48FB1;
+}
+
+
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.5) rotate(6deg); }
+  60% { opacity: 1; transform: scale(1.1) rotate(6deg); }
+  100% { opacity: 1; transform: scale(1) rotate(6deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="heartsContainer"></div>
+
+<div class="container">
+  <div id="startScreen">
+    <button class="button" onclick="startExperience()">Click Me 🧸</button>
+  </div>
+
+  <div id="content" style="display:none;">
+    <h1 id="typingTitle"></h1>
+    <img class="rilakkuma" src="rilakkuma2.png" id="rilakkumaImg">
+    <p id="typingText"></p>
+    <div id="question"></div>
+  </div>
+</div>
+
+<div id="musicPlayer">
+  🎵 Amnesia - Evan Pak
+  <button onclick="toggleMusic()" id="playPauseBtn">Pause</button>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+</div>
+
+<img src="sticker.png" class="corner-sticker" id="cornerSticker">
+
+<img src="sticker1.gif" class="corner-sticker1" id="cornerSticker1">
+
+<img src="sticker2.png" class="corner-sticker2" id="cornerSticker2">
+
+
+
+<footer> Made with lots of love ♡ </footer>
+
+<script>
+
+/* ===== FLOATING BACKGROUND SYSTEM ===== */
+
+const emojis = ["🧸","❤️","🤍","🤎"];
+
+function createFloatingItem() {
+  const container = document.getElementById("heartsContainer");
+  const item = document.createElement("span");
+
+  item.classList.add("floating-item");
+  item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+  item.style.left = Math.random() * 100 + "vw";
+
+  const size = Math.random() * 20 + 18;
+  item.style.fontSize = size + "px";
+
+  const duration = Math.random() * 10 + 12;
+  item.style.animationDuration = duration + "s";
+
+  const depthTypes = ["depth-light","depth-medium","depth-sharp"];
+  item.classList.add(depthTypes[Math.floor(Math.random() * depthTypes.length)]);
+
+  container.appendChild(item);
+
+  setTimeout(() => {
+    item.remove();
+  }, duration * 1000);
+}
+
+setInterval(createFloatingItem, 600);
+
+for (let i = 0; i < 18; i++) {
+  createFloatingItem();
+}
+
+
+
+/* ===== MUSIC ===== */
+
+const music = new Audio("music.mp3");
+music.loop = true;
+music.volume = 1;
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    playPauseBtn.innerText = "Pause";
+  } else {
+    music.pause();
+    playPauseBtn.innerText = "Play";
+  }
+}
+
+volumeSlider.addEventListener("input", function() {
+  music.volume = this.value;
+});
+
+/* ===== EXPERIENCE ===== */
+
+function startExperience() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("content").style.display = "block";
+  music.play();
+  typeTitle();
+
+  const sticker = document.getElementById("cornerSticker");
+  setTimeout(() => {
+    sticker.classList.add("show");
+  }, 500);
+
+
+const sticker1 = document.getElementById("cornerSticker1");
+  setTimeout(() => {
+    sticker1.classList.add("show");
+  }, 800);
+
+  const sticker2 = document.getElementById("cornerSticker2");
+  setTimeout(() => {
+    sticker2.classList.add("show");
+  }, 900);
+
+}
+
+
+
+
+
+function typeWriter(element, text, speed, callback) {
+  let i = 0;
+  element.innerHTML = "";
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    } else if (callback) callback();
+  }
+  typing();
+}
+
+function typeTitle() {
+  typeWriter(document.getElementById("typingTitle"),
+  "Happy Valentine’s Day 🧸", 70, () => {
+    document.getElementById("rilakkumaImg").style.display = "block";
+    typeParagraph();
+  });
+}
+
+function typeParagraph() {
+  typeWriter(document.getElementById("typingText"),
+  "Even though we've only known each other for a short time, you've already become such an important part of my life. Your kindness, humor, and warmth make everything feel special. I'm so grateful for you. 💗",
+  35, showQuestion);
+}
+
+
+
+function showQuestion() {
+  const q = document.getElementById("question");
+  q.style.display = "block";
+  q.innerHTML = `
+    <div class="valentine-text">Will you be my Valentine? 💌</div>
+    <button class='button' onclick='sayYes()'>Yes 💗</button>
+    <button class='button' id='noBtn' onmouseover='moveNo()' style='margin-left:15px;'>No 🐻</button>
+  `;
+}
+
+
+
+function moveNo() {
+  const btn = document.getElementById("noBtn");
+  btn.style.position = "absolute";
+  btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function sayYes() {
+  document.getElementById("question").innerHTML =
+  "YAYYYY 💗 You just made me the happiest person alive 🧸💗";
+}
+
+</script>
+</body>
+</html>
