@@ -437,13 +437,15 @@ function typeParagraph() {
 function showQuestion() {
   const q = document.getElementById("question");
   q.style.display = "block";
+
+  // Delay the appearance of the text and buttons
   setTimeout(() => {
-  q.innerHTML = `
-    <div class="valentine-text">Will you be my Valentine?</div>
-    <button class='button' onclick='sayYes()'>Yes 💗</button>
-    <button class='button' id='noBtn' onmouseover='moveNo()' style='margin-left:15px;'>No 🐻</button>
-  `;
-},1000);
+    q.innerHTML = `
+      <div class="valentine-text">Will you be my Valentine? 💌</div>
+      <button class='button' onclick='sayYes()'>Yes 💗</button>
+      <button class='button' id='noBtn' onmouseover='moveNo()' style='margin-left:15px;'>No 🐻</button>
+    `;
+  }, 1000); // Delay of 1 second (1000 milliseconds) before showing the content
 }
 
 
@@ -463,6 +465,7 @@ function sayYes() {
 </script>
 </body>
 </html>
+
 
 
 
